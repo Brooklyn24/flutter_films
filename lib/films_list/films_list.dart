@@ -68,7 +68,6 @@ class _FilmsSectionState extends State<FilmsSection> {
                                   child: Text(
                                     _films[index].description,
                                     overflow: TextOverflow.fade,
-                                  
                                   ),
                                 ),
                               )
