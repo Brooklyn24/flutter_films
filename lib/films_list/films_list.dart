@@ -34,50 +34,38 @@ class _FilmsSectionState extends State<FilmsSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-          child: Text("Top"),
-        ),
-        progress
-            ? _showProgress()
-            : Container(
-                height: 300.0,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.all(16.0),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _films.length,
-                  itemExtent: 150.0,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      color: Colors.blue,
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 0,
-                            child: Image.network(_films[index].url),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-                            child: Text(
-                              _films[index].title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                            ),
-                          )
-                        ],
+    return progress
+        ? _showProgress()
+        : ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.all(16.0),
+            scrollDirection: Axis.vertical,
+            itemCount: _films.length,
+            itemExtent: 150.0,
+            itemBuilder: (context, index) {
+              return Card(
+                color: Colors.blue,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 0,
+                      child: Image.network(_films[index].url),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+                        child: Text(
+                          _films[index].title,
+                          softWrap: true,
+                        ),
                       ),
-                    );
-                  },
+                    )
+                  ],
                 ),
-              )
-      ],
-    );
+              );
+            },
+          );
   }
 
   Widget _showProgress() {
