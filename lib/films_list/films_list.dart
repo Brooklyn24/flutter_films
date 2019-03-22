@@ -54,12 +54,26 @@ class _FilmsSectionState extends State<FilmsSection> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-                        child: Text(
-                          _films[index].title,
-                          softWrap: true,
-                        ),
-                      ),
+                          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+                          child: Column(
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  _films[index].title,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 4.0),
+                                  child: Text(
+                                    _films[index].description,
+                                    overflow: TextOverflow.fade,
+                                  
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                     )
                   ],
                 ),
@@ -100,14 +114,16 @@ class _FilmsSectionState extends State<FilmsSection> {
 class FilmShorInfo {
   final String title;
   final String posterPath;
+  final String description;
+
   String get url {
     String baseUrl = "https://image.tmdb.org/t/p/w500$posterPath";
     return baseUrl;
   }
 
-  FilmShorInfo(this.title, this.posterPath);
+  FilmShorInfo(this.title, this.posterPath, this.description);
 
   factory FilmShorInfo.fromJson(Map<String, dynamic> json) {
-    return FilmShorInfo(json['title'], json['poster_path']);
+    return FilmShorInfo(json['title'], json['poster_path'], json["overview"]);
   }
 }
